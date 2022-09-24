@@ -1,0 +1,31 @@
+{
+  "name": "imgs-preview",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./main/index.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "start": "cea",
+    "package": "cea build"
+  },
+  "dependencies": {
+    "@types/node": "^18.7.20",
+    "@vueuse/core": "^9.2.0",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.1.33",
+    "@unocss/preset-icons": "^0.45.22",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "@zzhaon/create-electron-app": "^0.2.4",
+    "electron": "^20.2.0",
+    "electron-builder": "^23.3.3",
+    "typescript": "^4.6.4",
+    "unocss": "^0.45.22",
+    "vite": "^3.1.0",
+    "vue-tsc": "^0.40.4"
+  }
+}
