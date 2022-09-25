@@ -22,7 +22,7 @@ export function scanFolders(paths: string[], root: string = ""): FolderInfo[] {
     };
 
     if (isDirectory) {
-      info.content = scanFolders(readdirSync(basePath));
+      info.content = scanFolders(readdirSync(basePath), basePath);
     }
 
     folderinfo.push(info);
