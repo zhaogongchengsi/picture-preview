@@ -1,9 +1,11 @@
-import { BrowserWindow, app } from "electron";
+import { BrowserWindow, app, Tray, nativeImage } from "electron";
 import { resolve } from "path";
 import { createAppMenus } from "./menus";
 import { addAppEventListener } from "./apis";
+// import iconPath from '../public/icon/icon.png'
 
 let win: BrowserWindow | undefined = undefined;
+let appIcon: Tray;
 
 // @ts-ignore
 const { loadUrl, mode, preload } = import.meta.env;
@@ -18,6 +20,7 @@ const createWindow = () => {
     height: 800,
     minHeight: 500,
     minWidth: 800,
+    // icon: iconPath,
     webPreferences: {
       nodeIntegration: true,
       preload: preload && getPath(preload),
@@ -34,12 +37,19 @@ const createWindow = () => {
   }
 };
 
+// const setIcon = () => {
+//     const image = nativeImage.createFromPath(iconPath);
+//     appIcon = new Tray(image)
+// }
+
 app
   .whenReady()
   .then(() => {
     createWindow();
+    // setIcon();
     createAppMenus();
     addAppEventListener();
+    
     mode === "development" && win?.webContents.openDevTools();
   })
   .catch(console.error);
