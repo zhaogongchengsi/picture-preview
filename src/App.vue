@@ -12,7 +12,7 @@ const [pictureList, open] = usePictureList();
   <Contaner>
     <button @click="open()">获取图片信息</button>
     <div class="picture-area">
-        sad
+        <img v-for="item in pictureList" :src="item" alt="">
     </div>
   </Contaner>
 </template>
