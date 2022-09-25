@@ -1,5 +1,8 @@
-
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --top-menu-height: 30px;
 }

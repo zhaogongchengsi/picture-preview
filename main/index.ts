@@ -22,6 +22,8 @@ const createWindow = () => {
       nodeIntegration: true,
       preload: preload && getPath(preload),
     },
+    titleBarStyle: "hidden",
+    transparent: true,
   });
 
   if (mode === "production") {
