@@ -1,7 +1,7 @@
 <template>
   <div class="top-menus">
     <div class="top-menus-list">
-        <button @click="setFull" cursor="pointer" text="2xl gray-500" :class="[isFull ? 'i-mdi-fullscreen-exit' : 'i-mdi-fullscreen', 'not-darg']" />
+        <button cursor="pointer" class="not-darg" text="xl gray-500" i-mdi="cog-outline" />
     </div>
   </div>
 </template>
