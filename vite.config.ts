@@ -7,8 +7,10 @@ import { join, resolve } from "path"
 // import os from 'os'
 
 export default defineConfig(() => {
+  // const publicDir = join(process.env.HOME, "Pictures");
+
   return {
-    publicDir: join(process.env.HOME, "Pictures"),
+    // publicDir: publicDir,
     plugins: [
       vue(),
       Unocss({

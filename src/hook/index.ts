@@ -14,10 +14,8 @@ export function usePictureList(): [Ref<string[]> ,() => void] {
     pictureList.value = pictureList.value.concat(list.map(path => {
         // const url = new URL(path, "file://")
         // return url.href
-        // return URL.createObjectURL(path);
-        return path
+        return `file://${path}`
     }));
-    console.log(pictureList.value);
   });
 
   function open(path?: string) {

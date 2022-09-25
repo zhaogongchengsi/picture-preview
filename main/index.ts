@@ -21,6 +21,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       preload: preload && getPath(preload),
+      webSecurity: false,
     },
     titleBarStyle: "hidden",
     transparent: true,
