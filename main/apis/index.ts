@@ -1,5 +1,5 @@
 import { ipcRenderer } from "electron";
-import { addEventOpenFile, addEventOpenDir, addEventAppClose } from "./init";
+import { addEventOpenDir, addEventAppClose } from "./init";
 
 export const send = (channel: string, ...params: unknown[]) => {
   ipcRenderer.send(channel, ...params);
@@ -30,7 +30,6 @@ export enum AppEvent {
 }
 
 export function addAppEventListener () {
-    addEventOpenFile();
     addEventOpenDir();
     addEventAppClose();
 }

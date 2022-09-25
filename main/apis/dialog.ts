@@ -21,3 +21,33 @@ export async function openFiles(path?: string) {
     message: "请选择图片",
   });
 }
+
+
+export async function openImagesFile(path?:string) :Promise<string[]> {
+  return new Promise((res, rej) => {
+       dialog.showOpenDialog({
+          title: "请选择图片文件",
+          defaultPath: path,
+          filters: [
+            {
+              name: "image",
+              extensions: [".png", ".jpeg", ".jpg", ".svg"],
+            },
+          ],
+          properties: [
+            "openFile",
+            "multiSelections",
+            "openDirectory",
+            "showHiddenFiles",
+          ],
+          message: "请选择图片",
+        }).then(file => {
+          if (file.canceled) {
+            rej(false);
+            return;
+          }
+          res(file.filePaths)
+        }).catch(rej)
+  })
+
+}
