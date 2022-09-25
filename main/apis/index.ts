@@ -33,3 +33,5 @@ export function addAppEventListener () {
     addEventOpenDir();
     addEventAppClose();
 }
+
+export const IMAGE_EXT = [".png", ".jpeg", ".jpg", ".svg"];

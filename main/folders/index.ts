@@ -1,5 +1,7 @@
 import { readdir } from "fs/promises";
-import { Stats, statSync } from "fs";
+import { statSync } from "fs";
+import { IMAGE_EXT } from "../apis";
+import { parse } from "path";
 
 export function scanFolders (paths:string[]) {
     return new Promise((res, rej) => {
@@ -9,10 +11,16 @@ export function scanFolders (paths:string[]) {
               })
             ).then(dirInfos => {
                 res(
-                  dirInfos.reduce<string[]>((pre, cun) => {
-                    return pre.concat(cun);
-                  }, [])
+                  dirInfos
+                    .reduce<string[]>((pre, cun) => {
+                      return pre.concat(cun);
+                    }, [])
+                    .filter(isImg)
                 );
             }).catch(rej)
     })
+}
+
+export function isImg (path:string) {
+    return IMAGE_EXT.includes(parse(path).ext);
 }
