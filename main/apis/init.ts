@@ -12,7 +12,7 @@ export function addEventOpenDir() {
     function (event: Electron.IpcMainEvent, path: string) {
       openImagesFile(path)
         .then(async (res) => {
-          event.reply(PICYURE_LIST, await scanFolders(res));
+          event.reply(PICYURE_LIST, scanFolders(res));
         })
         .catch((err) => {
           event.reply(PICYURE_LIST, undefined);

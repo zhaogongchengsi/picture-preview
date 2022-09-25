@@ -1,9 +1,8 @@
 import { Stats } from "node:fs";
 
-
 export interface FolderInfo {
   type: "file" | "dir";
-  Stats: Stats;
+  stats: Stats;
   path: string;
-  content?: FolderInfo;
+  content?: FolderInfo[];
 }
