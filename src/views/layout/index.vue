@@ -13,6 +13,7 @@ import TopMenu from "./TopMenu.vue";
 .main {
   width: 100%;
   height: calc(100vh - var(--top-menu-height));
+  overflow: auto;
 }
 .application-container {
 background: rgba( 0, 0, 0, 0.9 );
