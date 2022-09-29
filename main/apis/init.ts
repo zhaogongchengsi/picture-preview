@@ -6,13 +6,19 @@ import { scanFolders } from "../folders";
 export const OPEN_DIALOG = "OPEN_DIALOG";
 export const PICYURE_LIST = "PICYURE_LIST";
 
+export type Agreement = "file://" | "http://" | "https://";
+
 export function addEventOpenDir() {
   return ipcMain.on(
     OPEN_DIALOG,
-    function (event: Electron.IpcMainEvent, path: string) {
+    function (
+      event: Electron.IpcMainEvent,
+      path: string,
+      agreement: Agreement = "file://"
+    ) {
       openImagesFile(path)
         .then(async (res) => {
-          event.reply(PICYURE_LIST, scanFolders(res));
+          event.reply(PICYURE_LIST, scanFolders(res,'' ,agreement));
         })
         .catch((err) => {
           event.reply(PICYURE_LIST, undefined);

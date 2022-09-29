@@ -1,5 +1,6 @@
 import { Stats } from "node:fs";
 
+export interface FolderStats extends Stats {}
 
 export interface ImageSize {
     width: number,
@@ -8,7 +9,7 @@ export interface ImageSize {
 
 export interface FolderInfo {
   type: "file" | "dir";
-  stats: Stats;
+  stats: FolderStats;
   path: string;
   content?: FolderInfo[];
   size?: ImageSize;
