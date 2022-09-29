@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from "fs";
-import { IMAGE_EXT } from "../apis";
-import { join, parse } from "path";
+import { join } from "path";
 import { FolderInfo } from "../../types";
+import { getImageSize, isImg } from "./image";
 
 export function scanFolders(paths: string[], root: string = ""): FolderInfo[] {
   const folderinfo: FolderInfo[] = [];
@@ -11,14 +11,19 @@ export function scanFolders(paths: string[], root: string = ""): FolderInfo[] {
     const stats = statSync(basePath);
     const isDirectory = stats.isDirectory();
 
+    
+
     if (!isDirectory && !isImg(basePath)) {
       continue;
     }
+
+    const size = !isDirectory ? getImageSize(basePath) : undefined
 
     const info: FolderInfo = {
       type: isDirectory ? "dir" : "file",
       path: basePath,
       stats: stats,
+      size,
     };
 
     if (isDirectory) {
@@ -31,6 +36,4 @@ export function scanFolders(paths: string[], root: string = ""): FolderInfo[] {
   return folderinfo;
 }
 
-export function isImg(path: string) {
-  return IMAGE_EXT.includes(parse(path).ext);
-}
+

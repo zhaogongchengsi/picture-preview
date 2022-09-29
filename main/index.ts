@@ -47,7 +47,7 @@ app
   .then(() => {
     createWindow();
     // setIcon();
-    createAppMenus();
+    createAppMenus(win!);
     addAppEventListener();
     
     mode === "development" && win?.webContents.openDevTools();

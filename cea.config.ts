@@ -6,6 +6,6 @@ export default (): UseConfig => {
         input: "./main/index.ts",
         preload: "./main/preload.ts"
     },
-    vite: "./vite.config.ts"
+    vite: "./vite.config.ts",
   };
 };

@@ -1,12 +1,21 @@
-import { Menu, app } from "electron";
+import { Menu, app, BrowserWindow } from "electron";
 
-export function createAppMenus(): Menu {
-  const menus = createMenuTemplates();
+export function createAppMenus(wind:BrowserWindow): Menu {
+  const menus = createMenuTemplates(wind);
   Menu.setApplicationMenu(menus);
   return menus
 }
 
-export function createMenuTemplates () {
+export function createMenuTemplates(wind:BrowserWindow) {
+  let devMenus = []
+  if (import.meta.env.mode === "development") {
+    devMenus.push({
+      label: "打开开发者工具",
+      click() {
+        wind.webContents.openDevTools();
+      },
+    });
+  }
     return Menu.buildFromTemplate([
       {
         label: app.name,
@@ -26,7 +35,7 @@ export function createMenuTemplates () {
       },
       {
         label: "帮助",
-        submenu: [{ label: "反馈" }],
+        submenu: [{ label: "反馈" }, ...devMenus],
       },
     ]);
 }
