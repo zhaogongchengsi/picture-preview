@@ -1,7 +1,8 @@
 import { AppEvent } from "./index";
 import { ipcMain, app } from "electron";
-import { scanImages } from "../folders";
 import { OnMain, OnRenderer } from "../../channels";
+import scanImages from "../ScanImages";
+import { openImagesFile } from "./dialog";
 
 export type Agreement = "file://" | "http://" | "https://";
 
@@ -13,11 +14,10 @@ export function addEventOpenDir() {
       path: string,
       agreement: Agreement = "file://"
     ) {
-      scanImages(path,agreement).then(res => {
-        event.reply(OnRenderer.FileSelected, res)
-      }).catch(err => {
-        event.reply(OnRenderer.FileSelected, undefined);
-      })
+        openImagesFile().then(paths => {
+          scanImages.scan(paths)
+          event.reply(OnRenderer.FileSelected, scanImages.pictures);
+        })
     }
   );
 }

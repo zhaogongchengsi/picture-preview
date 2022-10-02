@@ -15,24 +15,15 @@ export interface ImageInfo {
 
 export function usePictureList() {
   const ipcRenderer = useIpcRenderer();
-  const pictureList = ref<FolderInfo[]>([]);
-  ipcRenderer.on(OnRenderer.FileSelected, function (list?: FolderInfo[]) {
+  const pictureList = ref<string[]>([]);
+  ipcRenderer.on(OnRenderer.FileSelected, function (list?: string[]) {
     if (!list) {
       return;
     }
-    pictureList.value = list;
+    pictureList.value = pictureList.value.concat(list)
   });
 
-  ipcRenderer.on(OnRenderer.AppendFile, function (list?: FolderInfo[]) {
-    if (!list) {
-      return;
-    }
-    pictureList.value = pictureList.value.concat(list);
-  });
-
-  return computed(() => {
-      return delayering(pictureList.value);
-  })
+  return pictureList;
 }
 
 export function delayering(trees: FolderInfo[]): ImageInfo[] {

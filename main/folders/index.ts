@@ -46,14 +46,40 @@ export function scanFolders(
 }
 
 
-export function scanImages(
+export function quickScanImages(
+  paths: string[],
+  root: string = "",
+  currentFiles:string[] = [],
+  agreement: Agreement
+) {
+  const res: string[] = [];
+  for (const path of paths) {
+    const basePath = join(root, path);
+    const isDirectory = statSync(basePath).isDirectory();
+        if (isDirectory) {
+          currentFiles = res.concat(
+            quickScanImages(readdirSync(basePath), basePath, res, agreement)
+          );
+          continue
+        }
+
+           if (!isImg(basePath)) {
+             continue;
+           }
+    res.push(agreement + basePath);
+  }
+  return res;
+}
+
+
+export function scanImages<T>(
   path?: string,
   agreement: Agreement = "file://"
-): Promise<FolderInfo[]> {
+): Promise<T[]> {
   return new Promise((res, rej) => {
     openImagesFile(path)
       .then(async (scanInfo) => {
-        res(scanFolders(scanInfo, "", agreement));
+        res(quickScanImages(scanInfo, "", agreement) as T[]);
       })
       .catch(rej);
   });

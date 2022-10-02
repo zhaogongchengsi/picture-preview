@@ -6,18 +6,17 @@
     <div
       class="img-item"
       v-for="img of imgs"
-      :key="img.path"
+      :key="img"
       :style="{ marginBottom: props.gap + 'px' }"
     >
       <slot :picture="img">
-        <img v-src="img.path" :alt="img.path" />
+        <img v-src="img" :alt="img" />
       </slot>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { computed } from "vue";
-import { FolderInfo } from "../../types";
 
 const props = defineProps({
   pictures: {
@@ -52,8 +51,8 @@ function deal<T>(brand: T[], games: number = 5) {
   return gameList.flat();
 }
 
-const imgs = computed<FolderInfo[]>(() => {
-  return deal<FolderInfo>(props.pictures as FolderInfo[], props.columnCount);
+const imgs = computed<string[]>(() => {
+  return deal<string>(props.pictures as string[], props.columnCount);
 });
 </script>
 <style lang="scss">

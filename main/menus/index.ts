@@ -1,6 +1,7 @@
 import { Menu, app, BrowserWindow } from "electron";
 import { OnRenderer } from "../../channels";
-import { scanImages } from "../folders";
+import { openImagesFile } from "../apis/dialog";
+import scanImages from "../ScanImages";
 
 export function createAppMenus(wind: BrowserWindow): Menu {
   const menus = createMenuTemplates(wind);
@@ -34,10 +35,11 @@ export function createMenuTemplates(wind: BrowserWindow) {
         {
           label: "打开",
           async click() {
-            const res = await scanImages();
-            sned(OnRenderer.FileSelected, res);
+            const paths = await openImagesFile();
+            scanImages.scan(paths);
+            sned(OnRenderer.FileSelected, scanImages.pictures);
           },
-        }
+        },
       ],
     },
     {
