@@ -1,6 +1,7 @@
 import { useIpcRenderer } from "./electron";
-import { Ref, ref } from "vue";
+import { computed, Ref, ref } from "vue";
 import { FolderInfo, FolderStats, ImageSize } from "../../types";
+import { OnRenderer } from "../../channels";
 
 export const OPEN_DIALOG = "OPEN_DIALOG";
 export const PICYURE_LIST = "PICYURE_LIST";
@@ -12,22 +13,26 @@ export interface ImageInfo {
   size?: ImageSize;
 }
 
-export function usePictureList(): [Ref<ImageInfo[]>, () => void] {
+export function usePictureList() {
   const ipcRenderer = useIpcRenderer();
-  const pictureList = ref<ImageInfo[]>([]);
-  ipcRenderer.on(PICYURE_LIST, function (list?: FolderInfo[]) {
+  const pictureList = ref<FolderInfo[]>([]);
+  ipcRenderer.on(OnRenderer.FileSelected, function (list?: FolderInfo[]) {
     if (!list) {
       return;
     }
-    const arr = delayering(list);
-    pictureList.value = arr;
+    pictureList.value = list;
   });
 
-  function open(path?: string) {
-    ipcRenderer.send(OPEN_DIALOG, path, "file://");
-  }
+  ipcRenderer.on(OnRenderer.AppendFile, function (list?: FolderInfo[]) {
+    if (!list) {
+      return;
+    }
+    pictureList.value = pictureList.value.concat(list);
+  });
 
-  return [pictureList, open];
+  return computed(() => {
+      return delayering(pictureList.value);
+  })
 }
 
 export function delayering(trees: FolderInfo[]): ImageInfo[] {
@@ -36,7 +41,6 @@ export function delayering(trees: FolderInfo[]): ImageInfo[] {
     root: ImageInfo[] = [],
     current?: FolderInfo
   ): ImageInfo[] {
-
     for (const info of infos) {
       if (info.type === "dir") {
         root.concat(flat(info.content!, root, info));
@@ -45,11 +49,11 @@ export function delayering(trees: FolderInfo[]): ImageInfo[] {
           dir: current?.path!,
           size: info.size,
           stats: info.stats,
-          path: info.path
-        })
+          path: info.path,
+        });
       }
     }
-    
+
     return root;
   }
 

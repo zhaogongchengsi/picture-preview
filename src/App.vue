@@ -3,7 +3,7 @@ import Contaner from "@/views/layout/index.vue";
 import { usePictureList } from "./hook";
 import PictureContainer from './components/ImageContainer.vue'
 
-const [pictureList, open] = usePictureList();
+const pictureList= usePictureList();
 
 
 
@@ -12,9 +12,10 @@ const [pictureList, open] = usePictureList();
 <template>
   <Contaner>
     <div class="picture-area">
-      <button @click="open()">获取图片信息</button>
       <PictureContainer 
-        :pictures="pictureList" 
+        :pictures="pictureList"
+        :gap="5"
+        :column-count="2"
        />
     </div>
   </Contaner>
