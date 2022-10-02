@@ -1,7 +1,7 @@
-import { BrowserWindow, app, Tray, nativeImage } from "electron";
+import { BrowserWindow, app, Tray } from "electron";
 import { resolve } from "path";
 import { createAppMenus } from "./menus";
-import { addAppEventListener } from "./apis";
+import ScanImages from "./ScanImages";
 // import iconPath from '../public/icon/icon.png'
 
 let win: BrowserWindow | undefined = undefined;
@@ -47,9 +47,12 @@ app
   .then(() => {
     createWindow();
     // setIcon();
+    app.on("activate", () => {
+      if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    });
+
+    ScanImages.listen();
     createAppMenus(win!);
-    addAppEventListener();
-    
     mode === "development" && win?.webContents.openDevTools();
   })
   .catch(console.error);
