@@ -38,7 +38,7 @@ export const IMAGE_EXT = [
   ".png",
   ".jpeg",
   ".jpg",
-  ".svg",
+  // ".svg",
   '.jfif',
   ".pjpeg",
   ".pjp",

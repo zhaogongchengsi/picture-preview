@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Contaner from "@/views/layout/index.vue";
 import { usePictureList } from "./hook";
+import PictureContainer from './components/ImageContainer.vue'
 
 const [pictureList, open] = usePictureList();
 
@@ -12,7 +13,9 @@ const [pictureList, open] = usePictureList();
   <Contaner>
     <div class="picture-area">
       <button @click="open()">获取图片信息</button>
-      <img w="200px" h="200px" v-for="item in pictureList" :src="item.path" alt="">
+      <PictureContainer 
+        :pictures="pictureList" 
+       />
     </div>
   </Contaner>
 </template>
