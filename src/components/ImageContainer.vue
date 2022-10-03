@@ -9,11 +9,11 @@
       :key="img"
       :style="{ marginBottom: props.gap + 'px' }"
     >
-      <slot :picture="img">
-        <div >
-          <img v-src="img"  src="" :alt="img" />
-        </div>
-      </slot>
+        <slot :picture="img">
+          <div>
+            <img v-src="img" src="" :alt="img" />
+          </div>
+        </slot>
     </div>
   </div>
 </template>
@@ -34,8 +34,8 @@ const props = defineProps({
   },
   loadNow: {
     type: Number,
-    default: 20
-  }
+    default: 20,
+  },
 });
 
 function creatTwoDArray(length: number): [][] {
@@ -49,7 +49,7 @@ function deal<T>(brand: T[], games: number = 5) {
     // @ts-ignore
     gameList[currentPlayer]?.push(item);
     currentPlayer++;
-    if (currentPlayer === (games - 1)) {
+    if (currentPlayer === games - 1) {
       currentPlayer = 0;
     }
   }
@@ -57,16 +57,19 @@ function deal<T>(brand: T[], games: number = 5) {
 }
 
 const imgs = computed<string[]>(() => {
-  console.log(props.pictures?.values)
   return deal<string>(props.pictures as string[], props.columnCount);
 });
-
 </script>
 <style lang="scss">
 .image-container {
   padding: 5px;
   box-sizing: border-box;
   width: 100%;
+
+  // [data-src] {
+  //   min-height: 200px;
+  //   background-color: rgb(236, 196, 196);
+  // }
 }
 
 .img-item {
