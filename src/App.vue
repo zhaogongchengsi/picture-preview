@@ -15,7 +15,7 @@ const pictureList= usePictureList();
       <PictureContainer 
         :pictures="pictureList"
         :gap="5"
-        :column-count="2"
+        :column-count="5"
        />
     </div>
   </Contaner>

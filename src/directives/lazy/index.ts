@@ -1,5 +1,4 @@
 import { App } from "vue";
-import { rendererImg } from "./el";
 import { observer } from "./observer";
 
 export interface loadingOptions {
@@ -9,27 +8,24 @@ export interface loadingOptions {
 }
 
 const IMG_LOAD_LAZY_NAME = "src";
+const IMG_LAZY_COMPONENT_NAME = "AsyncPictureComponent";
+
+export const DATA_SRC = 'data-src'
 
 export function lazy(options?: loadingOptions) {
   return {
     install(app: App) {
       app.directive(IMG_LOAD_LAZY_NAME, {
-        mounted(el, binding) {
+        mounted(el, binding, vnode) {
           const { value } = binding;
-          el.setAttribute("data-src", value);
-          rendererImg(value).then((path) => {
-            el.src = path;
-          });
-          el.stopObserver = observer(el);
+          el.setAttribute(DATA_SRC, value);
+          observer(el);
         },
         beforeUpdate(el, binding, vnode, prevVnode) {
           console.log("beforeUpdate");
         },
         updated(el, binding, vnode, prevVnode) {
           console.log("updated");
-        },
-        beforeUnmount(el, binding, vnode, prevVnode) {
-          el?.stopObserver();
         },
       });
     },

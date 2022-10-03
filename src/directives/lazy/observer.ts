@@ -1,20 +1,24 @@
-export function observer(el: Element, rootEl?: Element | HTMLBodyElement) {
-  function observerHandler(entries: any) {
-    // If intersectionRatio is 0, the target is out of view
-    // and we do not need to do anything.
-    // if (entries[0].intersectionRatio <= 0) return;
+import { rendererImg } from "../../el";
+import { DATA_SRC } from '.'
 
-    console.log("Loaded new items", entries);
-  }
-
-  var intersectionObserver = new IntersectionObserver(observerHandler, {
-    rootMargin: "0px",
-    threshold: 0,
-  });
+export function observer(el: HTMLImageElement, rootEl?: HTMLElement | HTMLBodyElement) {
+  var intersectionObserver = new IntersectionObserver(
+    ([entrie]) => {
+      if (!entrie.isIntersecting) {
+        return;
+      }
+      const path = el.dataset.src ?? '';
+      rendererImg(path).then((path) => {
+        el.src = path;
+        el.removeAttribute(DATA_SRC);
+        intersectionObserver.unobserve(el);
+      });
+    },
+    {
+      rootMargin: "0px",
+      threshold: 0,
+    }
+  );
 
   intersectionObserver.observe(el);
-
-  return () => {
-    intersectionObserver.unobserve(el);
-  };
 }

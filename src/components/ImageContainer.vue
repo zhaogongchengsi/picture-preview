@@ -10,14 +10,15 @@
       :style="{ marginBottom: props.gap + 'px' }"
     >
       <slot :picture="img">
-        <img v-src="img" :alt="img" />
+        <div >
+          <img v-src="img"  src="" :alt="img" />
+        </div>
       </slot>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { computed } from "vue";
-
 const props = defineProps({
   pictures: {
     type: Array,
@@ -31,6 +32,10 @@ const props = defineProps({
     type: Number,
     default: 5,
   },
+  loadNow: {
+    type: Number,
+    default: 20
+  }
 });
 
 function creatTwoDArray(length: number): [][] {
@@ -42,9 +47,9 @@ function deal<T>(brand: T[], games: number = 5) {
   let currentPlayer = 0;
   for (const item of brand) {
     // @ts-ignore
-    gameList[currentPlayer ?? games - 1]?.push(item);
+    gameList[currentPlayer]?.push(item);
     currentPlayer++;
-    if (currentPlayer % games === 0) {
+    if (currentPlayer === (games - 1)) {
       currentPlayer = 0;
     }
   }
@@ -52,8 +57,10 @@ function deal<T>(brand: T[], games: number = 5) {
 }
 
 const imgs = computed<string[]>(() => {
+  console.log(props.pictures?.values)
   return deal<string>(props.pictures as string[], props.columnCount);
 });
+
 </script>
 <style lang="scss">
 .image-container {

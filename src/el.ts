@@ -5,12 +5,9 @@
  * @returns
  * @todo !!! 搜索不到 bug 一会修
  */
-export function searchParentAttribute(el: Element, arrtName: string) {
-  const parent = el.parentNode;
-  if (!parent) {
-    return undefined;
-  }
-  //   return searchParentAttribute(parent);
+export function getAttribute(el: Element, arrtName: string) {
+  
+
 }
 
 export function loadImg(src: string): Promise<string> {
