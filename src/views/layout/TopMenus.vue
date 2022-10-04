@@ -1,7 +1,7 @@
 <template>
   <div class="top-menus">
     <a-space>
-      <a-popover>
+      <a-popover trigger="click">
         <button
           cursor="pointer"
           class="not-darg"
@@ -9,13 +9,27 @@
           i-mdi="cog-outline"
         />
         <template #content>
-          <div>
-            <div class="label">gap</div>
-            <a-slider :default-value="50" :style="{ width: '200px' }" />
-          </div>
-          <div>
-            <div class="label">gap</div>
-            <a-slider :default-value="50" :style="{ width: '200px' }" />
+          <div w="150px" box="border">
+            <div w="full">
+              <div class="label">列</div>
+              <a-slider
+                :default-value="app.setting.columnCount"
+                @change="setColumnCount"
+                :min="0"
+                :max="10"
+                :show-ticks="true"
+              />
+            </div>
+            <div w="full">
+              <div class="label">间距</div>
+              <a-slider
+                @change="setGap"
+                :default-value="app.setting.gap"
+                :min="0"
+                :max="10"
+                :show-ticks="true"
+              />
+            </div>
           </div>
         </template>
       </a-popover>
@@ -23,11 +37,18 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { usePictureApp } from '../../store'
+import { debounce } from '../..//utils/index'
+const app = usePictureApp()
 
-    const setting = reactive({
-  gap: "",
-});
+const setColumnCount = debounce((value:number) => {
+    app.setColumnCount(value)
+}, 300)
+
+const setGap = debounce((value: number) => {
+    app.setGap(value)
+}, 300)
+
 </script>
 <style lang="scss">
 .top-menus {

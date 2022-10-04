@@ -8,13 +8,11 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AButton: typeof import('@arco-design/web-vue')['Button']
-    AForm: typeof import('@arco-design/web-vue')['Form']
-    AFormItem: typeof import('@arco-design/web-vue')['FormItem']
-    AInput: typeof import('@arco-design/web-vue')['Input']
     APopover: typeof import('@arco-design/web-vue')['Popover']
     ASlider: typeof import('@arco-design/web-vue')['Slider']
     ASpace: typeof import('@arco-design/web-vue')['Space']
     ATrigger: typeof import('@arco-design/web-vue')['Trigger']
+    ATypographyText: typeof import('@arco-design/web-vue')['TypographyText']
     ImageContainer: typeof import('./src/components/Picture/ImageContainer.vue')['default']
     ImageRender: typeof import('./src/components/Picture/ImageRender.vue')['default']
   }
