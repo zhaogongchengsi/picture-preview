@@ -1,31 +1,31 @@
 <script setup lang="ts">
 import Contaner from "@/views/layout/index.vue";
-import { usePictureList } from "./hook";
-import { PictureContainer, PictureRender } from "./components/Picture/index";
-import DefaultPage from './views/default/index.vue'
-import { computed } from "vue";
-const pictureList = usePictureList();
+import AppHub from './views/Hub/index.vue'
 
-const isDefultPage = computed(() => {
-  return pictureList.value.length > 0
-})
 
 </script>
 
 <template>
   <Contaner>
-    <div class="picture-area">
-      <DefaultPage v-if="!isDefultPage" />
-      <PictureContainer v-else :pictures="pictureList" :gap="5" :column-count="2" v-slot="{ picture }" >
-        <PictureRender  :src="picture" />
-      </PictureContainer>
-    </div>
+    <template #header>
+      <div class="top-menus">
+        <button
+          cursor="pointer"
+          class="not-darg"
+          text="xl gray-500"
+          i-mdi="cog-outline"
+        />
+      </div>
+    </template>
+    <AppHub />
   </Contaner>
 </template>
 
 <style lang="scss">
-.picture-area {
-  width: 100%;
-  height: calc(100vh - var(--top-menu-height));
+.top-menus {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
 }
 </style>
