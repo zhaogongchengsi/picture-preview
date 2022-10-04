@@ -26,7 +26,7 @@ export function useIpcSend (id:string) {
     if (!id) {
         throw new Error(`${id} Does not exist`);
     }
-    return function (data: any) {
-        send(id, data)
+    return function (...data: any) {
+        send(id, ...data)
     };
 }

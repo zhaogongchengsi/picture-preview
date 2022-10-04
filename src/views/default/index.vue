@@ -8,7 +8,7 @@ import { IconUpload } from "@arco-design/web-vue/es/icon";
 import { useDropZone } from "@vueuse/core";
 import { ref } from "vue";
 import { OnMain } from "../../../channels";
-import { useIpcSend } from "../../hook/electron";
+import { useIpcSend } from "../../hook";
 const dropZoneRef = ref<HTMLDivElement>();
 const send = useIpcSend(OnMain.ScanImage)
 function onDrop(files: File[] | null) {
