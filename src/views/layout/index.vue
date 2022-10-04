@@ -1,8 +1,15 @@
 <template>
-  <div class="w-screen h-screen bg-white" :style="{'--top-menu-height': props.headerHeight + 'px'}">
+  <div
+    ref="dropZoneRef"
+    w="screen"
+    h="screen"
+    bg="white"
+    :class="{'isDrop': isOverDropZone}"
+    :style="{ '--top-menu-height': props.headerHeight + 'px' }"
+  >
     <div class="header">
       <slot name="header">
-            <div class="defaule-slot-header"></div>
+        <div class="defaule-slot-header"></div>
       </slot>
     </div>
     <div class="main">
@@ -11,12 +18,26 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { useDropZone } from "@vueuse/core";
+import { ref } from "vue";
+import { OnMain } from "../../../channels";
+import { useIpcSend } from "../../hook";
 const props = defineProps({
   headerHeight: {
     type: Number,
-    default: 30
-  }
-})
+    default: 30,
+  },
+});
+
+const dropZoneRef = ref<HTMLDivElement>();
+const send = useIpcSend(OnMain.ScanImage);
+function onDrop(files: File[] | null) {
+  const paths = files?.map((file) => {
+    return file.path;
+  });
+  send(paths);
+}
+const { isOverDropZone } = useDropZone(dropZoneRef, onDrop);
 </script>
 <style lang="scss">
 .main {
@@ -24,21 +45,17 @@ const props = defineProps({
   height: calc(100vh - var(--top-menu-height));
   overflow: auto;
 }
-// .application-container {
-//   background: rgba(0, 0, 0, 0.9);
-//   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-//   backdrop-filter: blur(18px);
-//   -webkit-backdrop-filter: blur(18px);
-//   border-radius: 10px;
-//   border: 1px solid rgba(255, 255, 255, 0.18);
-// }
+
+.isDrop {
+  background-color: rgb(246, 200, 200) !important;
+}
 
 .defaule-slot-header {
   height: 100%;
 }
 .header {
   height: var(--top-menu-height);
-   padding-right: 10px;
+  padding-right: 10px;
   box-sizing: border-box;
   padding-left: 100px;
   -webkit-app-region: drag;
