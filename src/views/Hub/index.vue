@@ -1,11 +1,11 @@
 <template>
   <div class="picture-area">
-    <DefaultPage v-if="!isDefultPage" />
+    <DefaultPage v-if="!pictureApp.isFirst" />
     <PictureContainer
       v-else
-      :pictures="pictureList"
-      :gap="5"
-      :column-count="2"
+      :pictures="pictureApp.pictureList"
+      :gap="pictureApp.setting.gap"
+      :column-count="pictureApp.setting.columnCount"
       v-slot="{ picture }"
     >
       <PictureRender :src="picture" />
@@ -13,18 +13,14 @@
   </div>
 </template>
 <script setup lang="ts">
-import { usePictureList } from "../../hook";
 import {
   PictureContainer,
   PictureRender,
 } from "../../components/Picture/index";
 import DefaultPage from "../default/index.vue";
-import { computed } from "vue";
-const pictureList = usePictureList();
+import { usePictureApp } from "../../store";
+const pictureApp = usePictureApp();
 
-const isDefultPage = computed(() => {
-  return pictureList.value.length > 0;
-});
 </script>
 <style lang="scss">
 .picture-area {
