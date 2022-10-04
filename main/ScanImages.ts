@@ -1,7 +1,7 @@
-import { app, dialog, ipcMain, nativeImage } from "electron";
+import { app, dialog, ipcMain, IpcMainEvent, nativeImage } from "electron";
 import { readdirSync, statSync } from "fs";
 import { join, parse } from "path";
-import { OnMain } from "../channels";
+import { OnMain, OnRenderer } from "../channels";
 import { ImageSize } from "../types";
 import { Agreement } from "./apis";
 
@@ -30,7 +30,7 @@ class ScanImages {
 
   constructor() {}
 
-    isImg(path: string) {
+  isImg(path: string) {
     return ScanImages.IMAGE_EXT.includes(parse(path).ext);
   }
 
@@ -98,17 +98,23 @@ class ScanImages {
     });
   }
 
-  private scanHandler() {}
+  private scanHandler(
+    e: IpcMainEvent,
+    paths: string[],
+  ) {
+    this.scanFolders(paths, "", "file://");
+    e.reply(OnRenderer.FileSelected, this.pictures)
+  }
 
-  private getImgSizeHandler () {}
+  private getImgSizeHandler() {}
 
-  private isSvg(path:string) {
-      if (!this.isImg(path)) {
-        return false;
-      }
-      const ext = parse(path).ext;
-      if (ext === "") return false;
-      return ext === ".svg" ? true : false;
+  private isSvg(path: string) {
+    if (!this.isImg(path)) {
+      return false;
+    }
+    const ext = parse(path).ext;
+    if (ext === "") return false;
+    return ext === ".svg" ? true : false;
   }
 
   private getImageSize(path: string): ImageSize {

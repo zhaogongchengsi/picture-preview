@@ -7,10 +7,15 @@
 import { IconUpload } from "@arco-design/web-vue/es/icon";
 import { useDropZone } from "@vueuse/core";
 import { ref } from "vue";
+import { OnMain } from "../../../channels";
+import { useIpcSend } from "../../hook/electron";
 const dropZoneRef = ref<HTMLDivElement>();
+const send = useIpcSend(OnMain.ScanImage)
 function onDrop(files: File[] | null) {
-  // 支持拖拽上传
-  console.log(files);
+  const paths = files?.map(file => {
+    return file.path
+  })
+  send(paths)
 }
 const { isOverDropZone } = useDropZone(dropZoneRef, onDrop);
 </script>
