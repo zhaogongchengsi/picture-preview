@@ -37,18 +37,17 @@
   </div>
 </template>
 <script setup lang="ts">
-import { usePictureApp } from '../../store'
-import { debounce } from '../..//utils/index'
-const app = usePictureApp()
+import { usePictureApp } from "../../store";
+import { debounce } from "../..//utils/index";
+const app = usePictureApp();
 
-const setColumnCount = debounce((value:number) => {
-    app.setColumnCount(value)
-}, 300)
+const setColumnCount = debounce((value: number) => {
+  app.setColumnCount(value);
+}, 300);
 
 const setGap = debounce((value: number) => {
-    app.setGap(value)
-}, 300)
-
+  app.setGap(value);
+}, 300);
 </script>
 <style lang="scss">
 .top-menus {
