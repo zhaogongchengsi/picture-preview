@@ -1,8 +1,8 @@
 <template>
-  <div class="w-screen h-screen app-bg" :style="{'--top-menu-height': props.headerHeight + 'px'}">
+  <div class="w-screen h-screen bg-white" :style="{'--top-menu-height': props.headerHeight + 'px'}">
     <div class="header">
       <slot name="header">
-            <TopMenu />
+            <div class="defaule-slot-header"></div>
       </slot>
     </div>
     <div class="main">
@@ -11,7 +11,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import TopMenu from "./TopMenu.vue";
 const props = defineProps({
   headerHeight: {
     type: Number,
@@ -25,15 +24,18 @@ const props = defineProps({
   height: calc(100vh - var(--top-menu-height));
   overflow: auto;
 }
-.application-container {
-  background: rgba(0, 0, 0, 0.9);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
+// .application-container {
+//   background: rgba(0, 0, 0, 0.9);
+//   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+//   backdrop-filter: blur(18px);
+//   -webkit-backdrop-filter: blur(18px);
+//   border-radius: 10px;
+//   border: 1px solid rgba(255, 255, 255, 0.18);
+// }
 
+.defaule-slot-header {
+  height: 100%;
+}
 .header {
   height: var(--top-menu-height);
    padding-right: 10px;
