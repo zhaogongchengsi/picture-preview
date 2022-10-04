@@ -1,10 +1,8 @@
 <template>
   <div
-    ref="dropZoneRef"
     w="screen"
     h="screen"
-    bg="white"
-    :class="{'isDrop': isOverDropZone}"
+    :class="[{'isDrop': isOverDropZone}]"
     :style="{ '--top-menu-height': props.headerHeight + 'px' }"
   >
     <div class="header">
@@ -12,7 +10,7 @@
         <div class="defaule-slot-header"></div>
       </slot>
     </div>
-    <div class="main">
+    <div class="main" ref="dropZoneRef">
       <slot></slot>
     </div>
   </div>
@@ -48,7 +46,7 @@ function onDrop(files: File[] | null) {
 }
 
 .isDrop {
-  background-color: rgb(246, 200, 200) !important;
+  background-color: rgb(251, 230, 230) !important;
 }
 
 .defaule-slot-header {

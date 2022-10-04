@@ -1,13 +1,14 @@
 <template>
   <div class="top-menus">
     <a-space>
-      <a-popover trigger="click">
-        <button
-          cursor="pointer"
-          class="not-darg"
-          text="xl gray-500"
-          i-mdi="cog-outline"
-        />
+      <div class="no-darg" cursor="pointer" @click="app.triggerDark">
+        <icon-moon v-if="app.dark" :size="iconSize"  />
+        <icon-sun v-else :size="iconSize" />
+      </div>
+      <a-popover>
+        <div class="no-darg" cursor="pointer" >
+          <icon-settings :size="iconSize" />
+        </div>
         <template #content>
           <div w="150px" box="border">
             <div w="full">
@@ -39,15 +40,20 @@
 <script setup lang="ts">
 import { usePictureApp } from "../../store";
 import { debounce } from "../..//utils/index";
+import { IconSun, IconSettings, IconMoon } from "@arco-design/web-vue/es/icon";
 const app = usePictureApp();
-
 const setColumnCount = debounce((value: number) => {
   app.setColumnCount(value);
 }, 300);
-
 const setGap = debounce((value: number) => {
   app.setGap(value);
 }, 300);
+
+const iconSize = 20;
+
+const setDark = () => {
+  console.log("dark");
+};
 </script>
 <style lang="scss">
 .top-menus {

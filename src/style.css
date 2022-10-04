@@ -22,3 +22,17 @@
   -webkit-backdrop-filter: blur(15px);
   border-radius: 10px;
 }
+
+.no-darg {
+  -webkit-app-region: no-drag;
+}
+
+body {
+  background-color: var(--color-bg-1);
+  color: var(--color-text-2);
+}
+
+/* [arco-theme=dark] {
+  background-color: var(--color-bg-1);
+  color: var(--color-text-2);
+} */
