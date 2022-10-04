@@ -1,5 +1,5 @@
 import { defineComponent, h, resolveDirective, withDirectives } from "vue";
-import { rendererImg } from "../el";
+import { rendererImg } from "../../el";
 
 export default defineComponent({
   props: {
