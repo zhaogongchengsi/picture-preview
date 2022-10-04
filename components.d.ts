@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     APopover: typeof import('@arco-design/web-vue')['Popover']
     ASlider: typeof import('@arco-design/web-vue')['Slider']
     ASpace: typeof import('@arco-design/web-vue')['Space']
+    ASpin: typeof import('@arco-design/web-vue')['Spin']
     ATrigger: typeof import('@arco-design/web-vue')['Trigger']
     ATypographyText: typeof import('@arco-design/web-vue')['TypographyText']
     ImageContainer: typeof import('./src/components/Picture/ImageContainer.vue')['default']

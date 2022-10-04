@@ -8,7 +8,13 @@
       :column-count="pictureApp.setting.columnCount"
       v-slot="{ picture }"
     >
-      <PictureRender :src="picture" />
+      <PictureRender :src="picture">
+        <template #loading>
+          <div class="picture-lading">
+            <a-spin dot :size="20" />
+          </div>
+        </template>
+      </PictureRender>
     </PictureContainer>
   </div>
 </template>
@@ -20,11 +26,16 @@ import {
 import DefaultPage from "../default/index.vue";
 import { usePictureApp } from "../../store";
 const pictureApp = usePictureApp();
-
 </script>
 <style lang="scss">
 .picture-area {
   width: 100%;
   height: calc(100vh - var(--top-menu-height));
+}
+.picture-lading {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

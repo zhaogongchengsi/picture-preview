@@ -2,7 +2,9 @@
 <Suspense>
  <Image :src="props.src" :alt="props.src" />
   <template #fallback>
-    <div class="fallback">加载中</div>
+    <slot name="loading">
+      <div class="fallback">加载中...</div>
+    </slot>
   </template>
 </Suspense>
 </template>

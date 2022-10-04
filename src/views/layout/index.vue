@@ -31,13 +31,14 @@ const props = defineProps({
 
 const dropZoneRef = ref<HTMLDivElement>();
 const send = useIpcSend(OnMain.ScanImage);
-function onDrop(files: File[] | null) {
-  const paths = files?.map((file) => {
-    return file.path;
-  });
-  send(paths);
-}
 const { isOverDropZone } = useDropZone(dropZoneRef, onDrop);
+
+function onDrop(files: File[] | null) {
+  send(files?.map((file) => {
+    return file.path;
+  }));
+}
+
 </script>
 <style lang="scss">
 .main {
