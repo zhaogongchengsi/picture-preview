@@ -41,3 +41,20 @@ export async function rendererImg(src: string) {
 export function getPictureCaching() {
   return pictureCaching;
 }
+
+
+export function fileReader (path:string) {
+  const reader = new FileReader();
+  return new Promise((res, rej) => {
+      reader.onload = (evt) => {
+        if (evt.target) res(evt.target.result)
+        else rej()
+      };
+      reader.onerror = (err) => rej(err)
+  })
+}
+
+export function createObjectURL (url:string) {
+
+
+}

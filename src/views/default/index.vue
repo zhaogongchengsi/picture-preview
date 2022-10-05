@@ -5,6 +5,7 @@
 </template>
 <script setup lang="ts">
 import { IconUpload } from "@arco-design/web-vue/es/icon";
+
 </script>
 <style lang="scss">
 .isDrop {
@@ -17,5 +18,6 @@ import { IconUpload } from "@arco-design/web-vue/es/icon";
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 </style>

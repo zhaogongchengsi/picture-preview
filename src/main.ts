@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import "uno.css"
 import "./style.css"
+import "./base.css"
 import { createPinia } from "pinia";
 import { lazy } from './directives'
 

@@ -101,9 +101,10 @@ class ScanImages {
   private scanHandler(
     e: IpcMainEvent,
     paths: string[],
+    prefix: Agreement = "file://"
   ) {
-    this.scanFolders(paths, "", "file://");
-    e.reply(OnRenderer.FileSelected, this.pictures)
+    this.scanFolders(paths, "", prefix);
+    e.reply(OnRenderer.FileSelected, this.pictures);
   }
 
   private getImgSizeHandler() {}

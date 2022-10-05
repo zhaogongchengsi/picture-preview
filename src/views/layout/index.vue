@@ -46,7 +46,7 @@ function onDrop(files: File[] | null) {
 }
 
 .isDrop {
-  background-color: rgb(251, 230, 230) !important;
+  background-color: #F3F4F6 !important;
 }
 
 .defaule-slot-header {

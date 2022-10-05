@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
 
-export type Agreement = "file://" | "http://" | "https://";
+export type Agreement = "file://" | "http://" | "https://" | '';
 
 export const send = (channel: string, ...params: unknown[]) => {
   ipcRenderer.send(channel, ...params);

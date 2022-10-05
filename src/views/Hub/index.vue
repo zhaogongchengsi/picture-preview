@@ -31,6 +31,7 @@ const pictureApp = usePictureApp();
 .picture-area {
   width: 100%;
   height: calc(100vh - var(--top-menu-height));
+  
 }
 .picture-lading {
   height: 150px;
