@@ -1,25 +1,25 @@
 <template>
   <div
     class="image-container"
-    :style="{ columnCount: props.columnCount, columnGap: props.gap + 'px' }"
+    :style="gridStyle"
   >
     <div
       class="img-item"
       v-for="(img, index) of imgs"
       :key="img"
-      :style="{ marginBottom: props.gap + 'px' }"
       @click="prevImg(img)"
     >
-        <slot :picture="imgs" :src="img" :ranking="index">
-          <div>
-            <img v-src="img" src="" :alt="img" />
-          </div>
-        </slot>
+      <slot :picture="imgs" :src="img" :ranking="index">
+        <div>
+          <img v-src="img" src="" :alt="img" />
+        </div>
+      </slot>
     </div>
   </div>
   <previw-dialog :visible="preview.previewState.previeDialogVisible" />
 </template>
 <script setup lang="ts">
+import { computed } from "vue";
 import { usePicturePreviewProvide, usePictures } from "./hooks";
 import PreviwDialog from "./PreviwDialog.vue";
 
@@ -36,29 +36,38 @@ const props = defineProps({
     type: Number,
     default: 5,
   },
-  loadNow: {
-    type: Number,
-    default: 20,
-  },
+  renderMode: {
+    type: String,
+    defaule: "grid"
+  }
 });
-const imgs = usePictures(props.pictures as string[], props.columnCount)
-const preview =  usePicturePreviewProvide(imgs)
+const imgs = usePictures(props.pictures as string[], props.columnCount);
+const preview = usePicturePreviewProvide(imgs, props.columnCount);
 
-const prevImg = (img:string) => {
-  preview.open(img)
-}
+const gridStyle = computed(() => {
+  return {
+    display: "grid",
+    gridTemplateColumns: `repeat(${props.columnCount}, 1fr)`,
+    gap: props.gap + 'px'
+  };
+});
 
+const cloumnStyle = computed(() => {
+  return {
+    columnCount: props.columnCount,
+    columnGap: props.gap + "px",
+  };
+});
+
+const prevImg = (img: string) => {
+  preview.open(img);
+};
 </script>
 <style lang="scss">
 .image-container {
   padding: 5px;
   box-sizing: border-box;
   width: 100%;
-
-  // [data-src] {
-  //   min-height: 200px;
-  //   background-color: rgb(236, 196, 196);
-  // }
 }
 
 .img-item {
@@ -73,9 +82,9 @@ const prevImg = (img:string) => {
 
   img {
     width: 100%;
-    // height: 100%;
+    height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit:cover;
     transition: all 2s;
   }
 }

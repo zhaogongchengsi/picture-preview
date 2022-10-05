@@ -12,7 +12,7 @@ export function usePictures(pictures: string[], columnCount: number) {
       // @ts-ignore
       gameList[currentPlayer]?.push(item);
       currentPlayer++;
-      if (currentPlayer === games - 1) {
+      if (currentPlayer === games) {
         currentPlayer = 0;
       }
     }
@@ -20,13 +20,17 @@ export function usePictures(pictures: string[], columnCount: number) {
   }
 
   return computed<string[]>(() => {
-    return deal<string>(pictures, columnCount);
+    // console.log(pictures);
+
+    const list = deal<string>(pictures, columnCount);
+    
+    return pictures;
   });
 }
 
 export const PREVIEW_PROIDE_NAME = Symbol("preview-pricture");
 
-type func = () => void
+type func = () => void;
 export interface PreviewProvide {
   close: func;
   open: func;
@@ -41,6 +45,7 @@ export interface PreviewProvide {
 
 export function usePicturePreviewProvide(
   images: ComputedRef<string[]>,
+  step: number = 5,
   currentImg: number = 0
 ) {
   const preview = reactive({
@@ -51,7 +56,7 @@ export function usePicturePreviewProvide(
 
   const findImgIndex = (url: string) => {
     if (preview) {
-      return preview.pictures.findIndex((img) => (img === url));
+      return preview.pictures.findIndex((img) => img === url);
     }
     return 0;
   };
@@ -62,16 +67,15 @@ export function usePicturePreviewProvide(
 
   const open = (currentImg: string) => {
     const index = findImgIndex(currentImg);
-    console.log(index)
     preview.CurrentPrevieImage = index;
     preview.previeDialogVisible = true;
   };
 
   const next = () => {
-    preview.CurrentPrevieImage++;
+    preview.CurrentPrevieImage ++;
   };
   const prev = () => {
-    preview.CurrentPrevieImage--;
+    preview.CurrentPrevieImage --;
   };
 
   const provideValue = {
