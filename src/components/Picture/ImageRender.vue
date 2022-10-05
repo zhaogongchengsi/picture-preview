@@ -9,6 +9,7 @@
 </Suspense>
 </template>
 <script setup lang="ts">
+import { useImagesPreview } from './hooks';
 import Image from './Image';
 const props = defineProps({
   src: {
@@ -16,6 +17,8 @@ const props = defineProps({
     default: "",
   },
 });
+
+const preview = useImagesPreview()
 
 </script>
 <style lang="scss">

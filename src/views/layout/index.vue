@@ -10,7 +10,7 @@
         <div class="defaule-slot-header"></div>
       </slot>
     </div>
-    <div class="main" ref="dropZoneRef">
+    <div class="main no-scroll-bar" ref="dropZoneRef">
       <slot></slot>
     </div>
   </div>

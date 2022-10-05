@@ -6,9 +6,9 @@
       :pictures="pictureApp.pictureList"
       :gap="pictureApp.setting.gap"
       :column-count="pictureApp.setting.columnCount"
-      v-slot="{ picture }"
+      v-slot="{ src }"
     >
-      <PictureRender :src="picture">
+      <PictureRender :src="src" >
         <template #loading>
           <div class="picture-lading">
             <a-spin dot :size="20" />
@@ -31,7 +31,7 @@ const pictureApp = usePictureApp();
 .picture-area {
   width: 100%;
   height: calc(100vh - var(--top-menu-height));
-  
+
 }
 .picture-lading {
   height: 150px;

@@ -5,20 +5,24 @@
   >
     <div
       class="img-item"
-      v-for="img of imgs"
+      v-for="(img, index) of imgs"
       :key="img"
       :style="{ marginBottom: props.gap + 'px' }"
+      @click="prevImg(img)"
     >
-        <slot :picture="img">
+        <slot :picture="imgs" :src="img" :ranking="index">
           <div>
             <img v-src="img" src="" :alt="img" />
           </div>
         </slot>
     </div>
   </div>
+  <previw-dialog :visible="preview.previewState.previeDialogVisible" />
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
+import { usePicturePreviewProvide, usePictures } from "./hooks";
+import PreviwDialog from "./PreviwDialog.vue";
+
 const props = defineProps({
   pictures: {
     type: Array,
@@ -37,28 +41,13 @@ const props = defineProps({
     default: 20,
   },
 });
+const imgs = usePictures(props.pictures as string[], props.columnCount)
+const preview =  usePicturePreviewProvide(imgs)
 
-function creatTwoDArray(length: number): [][] {
-  return Array.from({ length }).map(() => []);
+const prevImg = (img:string) => {
+  preview.open(img)
 }
 
-function deal<T>(brand: T[], games: number = 5) {
-  const gameList = creatTwoDArray(games);
-  let currentPlayer = 0;
-  for (const item of brand) {
-    // @ts-ignore
-    gameList[currentPlayer]?.push(item);
-    currentPlayer++;
-    if (currentPlayer === games - 1) {
-      currentPlayer = 0;
-    }
-  }
-  return gameList.flat();
-}
-
-const imgs = computed<string[]>(() => {
-  return deal<string>(props.pictures as string[], props.columnCount);
-});
 </script>
 <style lang="scss">
 .image-container {

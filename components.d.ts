@@ -16,5 +16,6 @@ declare module '@vue/runtime-core' {
     ATypographyText: typeof import('@arco-design/web-vue')['TypographyText']
     ImageContainer: typeof import('./src/components/Picture/ImageContainer.vue')['default']
     ImageRender: typeof import('./src/components/Picture/ImageRender.vue')['default']
+    PreviwDialog: typeof import('./src/components/Picture/PreviwDialog.vue')['default']
   }
 }
