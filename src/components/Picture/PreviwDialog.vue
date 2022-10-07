@@ -9,8 +9,6 @@
         <div class="preview-img">
           <img :src="currentImg" alt="" />
         </div>
-        <button class="button" @click.stop="next">下一个</button>
-        <button class="button" @click.stop="prev">上一个</button>
       </slot>
     </div>
   </Teleport>
@@ -36,15 +34,6 @@ const clickLayer = () => {
   pre?.close();
 };
 
-const prev = () => {
-    pre?.prev()
-    
-}
-
-const next = () => {
-    pre?.next()
-}
-
 </script>
 <style lang="scss">
 .picture-preview-dialog {
@@ -61,8 +50,11 @@ const next = () => {
 }
 
 .preview-img {
-  width: 500px;
-  height: 500px;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   img {
     width: 100%;
@@ -72,7 +64,7 @@ const next = () => {
 }
 
 .button {
-    background-color: aliceblue;
-    color: #333;
+  background-color: aliceblue;
+  color: #333;
 }
 </style>

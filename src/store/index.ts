@@ -12,6 +12,7 @@ export const usePictureApp = defineStore("app", {
     const setting = useStorage(STORAGE_NAME, {
       gap: 8,
       columnCount: 3,
+      layout: 'grid'
     });
 
     const isDark = useDark({
@@ -30,6 +31,7 @@ export const usePictureApp = defineStore("app", {
       pictureList,
       isFirst: isDefultPage,
       dark: isDark,
+
     };
   },
   actions: {

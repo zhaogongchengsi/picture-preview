@@ -11,6 +11,12 @@
         </div>
         <template #content>
           <div w="150px" box="border">
+            <div w="full" display="flex" justify="between">
+              <label for="grid">grid</label>
+              <input type="radio" name="layout" v-model="app.setting.layout"   value="grid"/>
+              <label for="waterfall">waterfall</label>
+              <input type="radio" name="layout" v-model="app.setting.layout" value="waterfall" />
+            </div>
             <div w="full">
               <div class="label">列</div>
               <a-slider

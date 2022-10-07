@@ -1,12 +1,13 @@
 <template>
   <div
     class="image-container"
-    :style="gridStyle"
+    :style="props.renderMode === 'grid' ? gridStyle : cloumnStyle"
   >
     <div
       class="img-item"
       v-for="(img, index) of imgs"
       :key="img"
+      :style="props.renderMode === 'waterfall' ? `margin-bottom: ${props.gap}px` : ''"
       @click="prevImg(img)"
     >
       <slot :picture="imgs" :src="img" :ranking="index">
@@ -58,6 +59,8 @@ const cloumnStyle = computed(() => {
     columnGap: props.gap + "px",
   };
 });
+
+
 
 const prevImg = (img: string) => {
   preview.open(img);

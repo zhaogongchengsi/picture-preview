@@ -6,6 +6,7 @@
       :pictures="pictureApp.pictureList"
       :gap="pictureApp.setting.gap"
       :column-count="pictureApp.setting.columnCount"
+      :renderMode="pictureApp.setting.layout"
       v-slot="{ src }"
     >
       <PictureRender :src="src" >
