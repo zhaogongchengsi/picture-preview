@@ -1,5 +1,6 @@
 import { useIpcRenderer, useIpcSend } from "./electron";
-import { Ref, ref } from "vue";
+import { useAutoScroll } from './scroll'
+import { ref } from "vue";
 import { FolderInfo, FolderStats, ImageSize } from "../../types";
 import { OnRenderer } from "../../channels";
 
@@ -51,4 +52,4 @@ export function delayering(trees: FolderInfo[]): ImageInfo[] {
   return flat(trees);
 }
 
-export { useIpcSend, useIpcRenderer };
+export { useIpcSend, useIpcRenderer, useAutoScroll };

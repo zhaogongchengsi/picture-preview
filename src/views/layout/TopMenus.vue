@@ -1,6 +1,10 @@
 <template>
   <div class="top-menus">
     <a-space>
+      <div class="no-darg" cursor="pointer" @click="paly">
+        <icon-pause-circle-fill :size="iconSize"   />
+        <!-- <icon-play-circle-fill /> -->
+      </div>
       <div class="no-darg" cursor="pointer" @click="app.triggerDark">
         <icon-moon v-if="app.dark" :size="iconSize" />
         <icon-sun v-else :size="iconSize" />
@@ -57,8 +61,8 @@
 </template>
 <script setup lang="ts">
 import { usePictureApp } from "../../store";
-import { debounce } from "../..//utils/index";
-import { IconSun, IconSettings, IconMoon } from "@arco-design/web-vue/es/icon";
+import { debounce } from "../../utils/index";
+import { IconSun, IconSettings, IconMoon, IconPauseCircleFill } from "@arco-design/web-vue/es/icon";
 const app = usePictureApp();
 const setColumnCount = debounce((value: number) => {
   app.setColumnCount(value);
@@ -73,8 +77,8 @@ const setLayout = () => {
   app.setGap(app.setting.gap);
 };
 
-const setDark = () => {
-  console.log("dark");
+const paly = () => {
+  console.log("play");
 };
 </script>
 <style lang="scss">

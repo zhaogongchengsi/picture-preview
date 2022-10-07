@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ABackTop: typeof import('@arco-design/web-vue')['BackTop']
     AButton: typeof import('@arco-design/web-vue')['Button']
     APopover: typeof import('@arco-design/web-vue')['Popover']
     ARadio: typeof import('@arco-design/web-vue')['Radio']
@@ -19,5 +20,6 @@ declare module '@vue/runtime-core' {
     ImageContainer: typeof import('./src/components/Picture/ImageContainer.vue')['default']
     ImageRender: typeof import('./src/components/Picture/ImageRender.vue')['default']
     PreviwDialog: typeof import('./src/components/Picture/PreviwDialog.vue')['default']
+    Scroll: typeof import('./src/components/AutoScroll/Scroll.vue')['default']
   }
 }

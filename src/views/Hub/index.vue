@@ -17,6 +17,7 @@
         </template>
       </PictureRender>
     </PictureContainer>
+    
   </div>
 </template>
 <script setup lang="ts">
@@ -32,7 +33,7 @@ const pictureApp = usePictureApp();
 .picture-area {
   width: 100%;
   height: calc(100vh - var(--top-menu-height));
-
+  position: relative;
 }
 .picture-lading {
   height: 150px;

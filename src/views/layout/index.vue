@@ -10,10 +10,11 @@
         <div class="defaule-slot-header"></div>
       </slot>
     </div>
-    <div class="main no-scroll-bar" ref="dropZoneRef">
+    <div class="main" ref="dropZoneRef">
       <slot></slot>
     </div>
   </div>
+
 </template>
 <script lang="ts" setup>
 import { useDropZone } from "@vueuse/core";
@@ -41,8 +42,7 @@ function onDrop(files: File[] | null) {
 <style lang="scss">
 .main {
   width: 100%;
-  height: calc(100vh - var(--top-menu-height));
-  overflow: auto;
+  position:relative;
 }
 
 .isDrop {

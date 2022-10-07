@@ -2,6 +2,7 @@
 import Contaner from "@/views/layout/index.vue";
 import AppHub from "./views/Hub/index.vue";
 import TopMenus from "./views/layout/TopMenus.vue";
+import { AutoScroll } from './components/AutoScroll'
 
 </script>
 
@@ -10,6 +11,8 @@ import TopMenus from "./views/layout/TopMenus.vue";
     <template #header>
       <TopMenus />
     </template>
-    <AppHub />
+    <AutoScroll :height="`calc(100vh - var(--top-menu-height))`">
+       <AppHub />
+    </AutoScroll>
   </Contaner>
 </template>
