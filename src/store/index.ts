@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { useDark, useStorage } from "@vueuse/core";
 import { usePictureList } from "../hook";
-import { computed } from "vue";
+import { computed, watch } from "vue";
 
 export const STORAGE_NAME = "setting"
 
@@ -31,7 +31,6 @@ export const usePictureApp = defineStore("app", {
       pictureList,
       isFirst: isDefultPage,
       dark: isDark,
-
     };
   },
   actions: {

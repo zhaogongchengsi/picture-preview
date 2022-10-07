@@ -1,13 +1,23 @@
 <template>
   <div
     class="image-container"
-    :style="props.renderMode === 'grid' ? gridStyle : cloumnStyle"
+    :style="[
+      props.renderMode === 'grid'
+        ? {
+            display: 'grid',
+            gridTemplateColumns: `repeat(${props.columnCount}, 1fr)`,
+            gridGap: `${props.gap}px`,
+          }
+        : { columnCount: props.columnCount, 'column-gap': `${props.gap}px`},
+    ]"
   >
     <div
       class="img-item"
       v-for="(img, index) of imgs"
       :key="img"
-      :style="props.renderMode === 'waterfall' ? `margin-bottom: ${props.gap}px` : ''"
+      :style="
+        props.renderMode === 'waterfall' ? `margin-bottom: ${props.gap}px` : ''
+      "
       @click="prevImg(img)"
     >
       <slot :picture="imgs" :src="img" :ranking="index">
@@ -20,7 +30,7 @@
   <previw-dialog :visible="preview.previewState.previeDialogVisible" />
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import { usePicturePreviewProvide, usePictures } from "./hooks";
 import PreviwDialog from "./PreviwDialog.vue";
 
@@ -31,7 +41,7 @@ const props = defineProps({
   },
   gap: {
     type: Number,
-    default: 10,
+    default: 5,
   },
   columnCount: {
     type: Number,
@@ -39,28 +49,41 @@ const props = defineProps({
   },
   renderMode: {
     type: String,
-    defaule: "grid"
-  }
+    defaule: "grid",
+  },
 });
 const imgs = usePictures(props.pictures as string[], props.columnCount);
 const preview = usePicturePreviewProvide(imgs, props.columnCount);
 
-const gridStyle = computed(() => {
+const gridStyle = () => {
   return {
     display: "grid",
     gridTemplateColumns: `repeat(${props.columnCount}, 1fr)`,
-    gap: props.gap + 'px'
+    gridGap: `${props.gap}px`,
   };
-});
+};
 
-const cloumnStyle = computed(() => {
+const cloumnStyle = () => {
   return {
     columnCount: props.columnCount,
-    columnGap: props.gap + "px",
+    columnGap: `${props.gap}px`,
   };
+};
+
+const getGap = computed(() => {
+
+  console.log(props.gap)
+  const { gap, renderMode } = props;
+  if (renderMode === "grid") {
+    return {
+      gridGap: `${gap}px`,
+    };
+  } else {
+    return {
+      columnGap: `${gap}px`,
+    };
+  }
 });
-
-
 
 const prevImg = (img: string) => {
   preview.open(img);
@@ -87,7 +110,7 @@ const prevImg = (img: string) => {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit:cover;
+    object-fit: cover;
     transition: all 2s;
   }
 }

@@ -2,20 +2,32 @@
   <div class="top-menus">
     <a-space>
       <div class="no-darg" cursor="pointer" @click="app.triggerDark">
-        <icon-moon v-if="app.dark" :size="iconSize"  />
+        <icon-moon v-if="app.dark" :size="iconSize" />
         <icon-sun v-else :size="iconSize" />
       </div>
       <a-popover>
-        <div class="no-darg" cursor="pointer" >
+        <div class="no-darg" cursor="pointer">
           <icon-settings :size="iconSize" />
         </div>
         <template #content>
           <div w="150px" box="border">
             <div w="full" display="flex" justify="between">
               <label for="grid">grid</label>
-              <input type="radio" name="layout" v-model="app.setting.layout"   value="grid"/>
+              <input
+                @change="setLayout"
+                type="radio"
+                name="layout"
+                v-model="app.setting.layout"
+                value="grid"
+              />
               <label for="waterfall">waterfall</label>
-              <input type="radio" name="layout" v-model="app.setting.layout" value="waterfall" />
+              <input
+                @change="setLayout"
+                type="radio"
+                name="layout"
+                v-model="app.setting.layout"
+                value="waterfall"
+              />
             </div>
             <div w="full">
               <div class="label">列</div>
@@ -56,6 +68,10 @@ const setGap = debounce((value: number) => {
 }, 300);
 
 const iconSize = 20;
+
+const setLayout = () => {
+  app.setGap(app.setting.gap);
+};
 
 const setDark = () => {
   console.log("dark");
